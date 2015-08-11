@@ -341,6 +341,22 @@ $(document).ready(function () {
                 });
     });
 
+    //Filter Draft Board when text is entered to filter field
+    $('#search_board').on('input', function () {
+        var searchText = $(this).val();
+        $('#playerPool button').each(function () {
+            if (searchText === '') {
+                $(this).show();
+            } else {
+                if ($(this).is(':contains(' + searchText + ')')) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            }
+        });
+    });
+
     //---- Drafted Team Functions ---//
     //Add Player to Draft Board
     $('#select_team').change(function (e) {

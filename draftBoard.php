@@ -19,7 +19,7 @@ if ($PlayerPoolFilter === 'ALL') {
             <div class="panel-heading">
                 <h3 class="panel-title">Draft Board</h3>
             </div>
-            <div class="panel-body" style="max-height: 600px;overflow-y: scroll;">
+            <div class="panel-body" style="max-height: 800px;overflow-y: scroll;">
                 <ul id="playerPool" class="list-group" style="text-align: left; font-size: smaller;">
                     <?php
                     while ($tableValue = mysql_fetch_array($getPlayers)) {
@@ -58,6 +58,8 @@ if ($PlayerPoolFilter === 'ALL') {
                 </ul>
             </div>
         </div>
+        <label>Filter Draft Board:</label><br>
+        <input id="search_board" class="form-control">
     </div>
     <div class="col-lg-5">
         <br>
