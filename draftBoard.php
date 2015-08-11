@@ -11,7 +11,6 @@ if ($PlayerPoolFilter === 'ALL') {
     $getPlayers = mysql_query("SELECT * FROM `playerpool` WHERE trim(`Position`)='{$PlayerPoolFilter}' ORDER BY `Rank` ASC");
 }
 ?>
-
 <div class="row">
     <div class="col-lg-4">
         <br>
@@ -130,11 +129,13 @@ if ($PlayerPoolFilter === 'ALL') {
                 <br>
                 <?php
                 if ($DraftStatus === 'active') {
-                    echo '<button id="btn_draftPlayer" class="btn btn-primary">Draft Selected Player</button>';
+                    echo '<button id="btn_draftPlayer" class="btn btn-primary">Draft Selected Player</button>&nbsp;';
+                    echo '<button id="btn_undoPick" class="btn btn-primary">Undo Pick</button>';
                 } else {
-                    echo '<button id="btn_draftPlayer" class="btn btn-primary disabled">Draft Selected Player</button>';
+                    echo '<button id="btn_draftPlayer" class="btn btn-primary disabled">Draft Selected Player</button>&nbsp;';
+                    echo '<button id="btn_undoPick" class="btn btn-primary disabled">Undo Pick</button>';
                 }
-                ?>
+                ?>               
                 <hr>
                 <label>Filter By Position:</label><br>
                 <button class="btn btn-default filterPOS" data-pos="ALL">ALL</button>

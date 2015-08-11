@@ -158,6 +158,11 @@ $(document).ready(function () {
 
         var pool_ID = $('#playerPool .list-group-item.active').attr('id');
 
+        if (typeof pool_ID === 'undefined') {
+            alert("Please Select A Player");
+            return;
+        }
+
         $.ajax(
                 {
                     url: "_actions/draftPlayer.php",
@@ -172,6 +177,27 @@ $(document).ready(function () {
                     error: function (jqXHR, textStatus, errorThrown)
                     {
                         alert("Add Item Failed: " + errorThrown);
+                    }
+                });
+
+    });
+
+    //Undo Draft Picks
+    $('#btn_undoPick').click(function (e) {
+
+        $.ajax(
+                {
+                    url: "_actions/undoPick.php",
+                    type: "POST",
+                    data: {
+                    },
+                    success: function (data, textStatus, jqXHR)
+                    {
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Undo Pick Failed: " + errorThrown);
                     }
                 });
 
@@ -383,10 +409,15 @@ $(document).ready(function () {
 
 });
 
-
-
-
 function  platformListGroupActive() {
+
+    //For each disabled (drafted) list item, make the disabled property true
+    $('.list-group-item').each(function (e) {
+        if ($(this).hasClass("disabled")) {
+            $(this).prop("disabled", true);
+        }
+    });
+
     //For any list group: Remove all active classes from items in platform dropdown list, add active class when a new item is selected
     $('.list-group-item').click(function (e) {
         $(this).parent().find('.playerListItem').removeClass('active');
