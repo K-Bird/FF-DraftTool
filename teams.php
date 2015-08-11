@@ -16,7 +16,9 @@ $teamFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` WHERE 
             </div>
             <div class="panel-body">
                 <label>Filter Drafted Team By Owner:</label><br>
-                <select id="select_team" class="form-control" <?php if ($DraftStatus === 'setup') { echo' disabled'; } ?>>
+                <select id="select_team" class="form-control" <?php if ($DraftStatus === 'setup') {
+    echo' disabled';
+} ?>>
                     <?php
                     while ($ownersRow = mysql_fetch_array($getOwners)) {
                         if ($ownersRow['OwnerName'] === $teamFilter) {
@@ -35,6 +37,12 @@ $teamFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` WHERE 
                     echo '<h2>Drafted Started, Select An Owner to Filter By';
                 } else {
 
+                    $qbCount = 0;
+                    $rbCount = 0;
+                    $wrCount = 0;
+                    $teCount = 0;
+                    $dstCount = 0;
+                    $kCount = 0;
                     echo $teamFilter, "'s Team<br>";
                     while ($draftedPicksRow = mysql_fetch_array($getDraftedPicks)) {
 
@@ -49,8 +57,23 @@ $teamFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` WHERE 
                             $getOwnerOfPickRow['Round'], ' - Pick: ',
                             $getOwnerOfPickRow['Pick'], ' - Overall: ',
                             $getOwnerOfPickRow['Overall'], '<br>';
+                            if ($getDraftedPlayerRow['Position'] === 'QB') {
+                                $qbCount = $qbCount + 1;
+                            } elseif ($getDraftedPlayerRow['Position'] === 'RB') {
+                                $rbCount = $rbCount + 1;
+                            } elseif ($getDraftedPlayerRow['Position'] === 'WR') {
+                                $wrCount = $wrCount + 1;
+                            } elseif ($getDraftedPlayerRow['Position'] === 'TE') {
+                                $teCount = $teCount + 1;
+                            } elseif ($getDraftedPlayerRow['Position'] === 'DST') {
+                                $dstCount = $dstCount + 1;
+                            } elseif ($getDraftedPlayerRow['Position'] === 'K') {
+                                $kCount = $kCount + 1;
+                            }
                         }
                     }
+                    echo '<br><br><label>Team Breakdown:</label><br>';
+                    echo 'QBs: ', $qbCount, ' / 4 | RBs: ',$rbCount,' / 8 | WRs: ',$wrCount,' / 8 | TEs: ',$teCount,' / 3 | DST: ',$dstCount,' / 3 | K: ',$kCount,' / 3';
                 }
                 ?>
             </div>
