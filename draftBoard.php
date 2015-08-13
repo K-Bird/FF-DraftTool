@@ -23,7 +23,7 @@ if ($PlayerPoolFilter === 'ALL') {
                     <?php
                     while ($tableValue = mysql_fetch_array($getPlayers)) {
                         if ($tableValue['Status'] === 'Available') {
-                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item playerListItem">',
+                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item playerListItem" data-rk=',$tableValue['Rank'],'>',
                             '#', $tableValue['Rank'],
                             ' ', $tableValue['PlayerName'],
                             ', ', $tableValue['Position'],
@@ -33,7 +33,7 @@ if ($PlayerPoolFilter === 'ALL') {
                             '</button>';
                         }
                         if ($tableValue['Status'] === 'Drafted') {
-                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item playerListItem disabled">',
+                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item playerListItem data-rk=',$tableValue['Rank'],' disabled">',
                             '#', $tableValue['Rank'],
                             ' ', $tableValue['PlayerName'],
                             ', ', $tableValue['Position'],
@@ -43,7 +43,7 @@ if ($PlayerPoolFilter === 'ALL') {
                             '</button>';
                         }
                         if ($tableValue['Status'] === 'W') {
-                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item list-group-item-danger playerListItem">',
+                            echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item list-group-item-danger playerListItem" data-rk=',$tableValue['Rank'],'>',
                             '#', $tableValue['Rank'],
                             ' ', $tableValue['PlayerName'],
                             ', ', $tableValue['Position'],
@@ -59,6 +59,14 @@ if ($PlayerPoolFilter === 'ALL') {
         </div>
         <label>Filter Draft Board:</label><br>
         <input id="search_board" class="form-control">
+        <br>
+        <label>Move Selected Player: </label>&nbsp;&nbsp;
+        <button id="btn_movePlayerUp" class="btn btn-primary">
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>&nbsp;Move Rank Up
+        </button>
+        <button id="btn_movePlayerDown" class="btn btn-primary">
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>&nbsp;Move Rank Down
+        </button>
     </div>
     <div class="col-lg-5">
         <br>

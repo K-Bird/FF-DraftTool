@@ -23,7 +23,7 @@ $(document).ready(function () {
 //---- Draft Setup Functions ----//
     //Pull text from selected owner list item and pass values to edit owner modal | if nothing selected alert user and stop execution
     $('#btn_editOwner').click(function (e) {
-        var OwnerPick = $('#ownersList .list-group-item.active').text();
+        var OwnerPick = $('#playerPool .list-group-item.active').text();
 
         if (OwnerPick === '') {
             alert("You must select an owner to edit");
@@ -38,7 +38,7 @@ $(document).ready(function () {
     //Edit Owner Name
     $('#submit_editOwner').click(function (e) {
         var newName = $('#editOwner_Name').val();
-        var rowID = $('#ownersList .list-group-item.active').attr('ID');
+        var rowID = $('#playerPool .list-group-item.active').attr('ID');
 
         $.ajax(
                 {
@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     //Move Owner Up
     $('#btn_moveOwnerUp').click(function (e) {
-        var draftPos = $('#ownersList .list-group-item.active').attr('data-pos');
+        var draftPos = $('#playerPool .list-group-item.active').attr('data-pos');
 
         $.ajax(
                 {
@@ -83,7 +83,7 @@ $(document).ready(function () {
 
     //Move Owner Down
     $('#btn_moveOwnerDown').click(function (e) {
-        var draftPos = $('#ownersList .list-group-item.active').attr('data-pos');
+        var draftPos = $('#playerPool .list-group-item.active').attr('data-pos');
 
         $.ajax(
                 {
@@ -382,7 +382,51 @@ $(document).ready(function () {
             }
         });
     });
+    
+    //Move Player Up
+    $('#btn_movePlayerUp').click(function (e) {
+        var poolRank = $('#playerPool .list-group-item.active').attr('data-rk');
 
+        $.ajax(
+                {
+                    url: "_actions/movePlayerUp.php",
+                    type: "POST",
+                    data: {
+                        poolRank: poolRank
+                    },
+                    success: function (data, textStatus, jqXHR)
+                    {
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Add Item Failed: " + errorThrown);
+                    }
+                });
+    });
+
+    //Move Player Down
+    $('#btn_movePlayerDown').click(function (e) {
+        var poolRank = $('#playerPool .list-group-item.active').attr('data-rk');
+
+        $.ajax(
+                {
+                    url: "_actions/movePlayerDown.php",
+                    type: "POST",
+                    data: {
+                        poolRank: poolRank
+                    },
+                    success: function (data, textStatus, jqXHR)
+                    {
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Add Item Failed: " + errorThrown);
+                    }
+                });
+    });
+    
     //---- Drafted Team Functions ---//
     //Add Player to Draft Board
     $('#select_team').change(function (e) {
