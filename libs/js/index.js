@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     //Move Owner Up
     $('#btn_moveOwnerUp').click(function (e) {
-        var draftPos = $('#playerPool .list-group-item.active').attr('data-pos');
+        var draftPos = $('#ownersList .list-group-item.active').attr('data-pos');
 
         $.ajax(
                 {
@@ -83,7 +83,7 @@ $(document).ready(function () {
 
     //Move Owner Down
     $('#btn_moveOwnerDown').click(function (e) {
-        var draftPos = $('#playerPool .list-group-item.active').attr('data-pos');
+        var draftPos = $('#ownersList .list-group-item.active').attr('data-pos');
 
         $.ajax(
                 {
