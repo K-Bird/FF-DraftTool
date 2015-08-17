@@ -382,7 +382,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     //Move Player Up
     $('#btn_movePlayerUp').click(function (e) {
         var poolRank = $('#playerPool .list-group-item.active').attr('data-rk');
@@ -426,9 +426,9 @@ $(document).ready(function () {
                     }
                 });
     });
-    
-    //---- Drafted Team Functions ---//
-    //Add Player to Draft Board
+
+    //---- Draft Recap Functions ---//
+    //Select Team to Display
     $('#select_team').change(function (e) {
 
         var newOwner = $('#select_team').val();
@@ -449,6 +449,45 @@ $(document).ready(function () {
                         alert("Filter Not Applied: " + errorThrown);
                     }
                 });
+    });
+
+    //Filter drafted board by position button clicked
+    $('.filterDraftedPOS').click(function (e) {
+
+        var position = $(this).attr('data-pos');
+
+        $.ajax(
+                {
+                    url: "_actions/filterDraftedPOS.php",
+                    type: "POST",
+                    data: {
+                        pos: position
+                    },
+                    success: function (data, textStatus, jqXHR)
+                    {
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Filter Not Applied: " + errorThrown);
+                    }
+                });
+    });
+
+    //Filter Drafted Board when text is entered to filter field
+    $('#recap_board').on('input', function () {
+        var searchText = $(this).val();
+        $('#recapPool button').each(function () {
+            if (searchText === '') {
+                $(this).show();
+            } else {
+                if ($(this).is(':contains(' + searchText + ')')) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            }
+        });
     });
 
 });

@@ -43,6 +43,7 @@ $getOwners = mysql_query("SELECT * FROM `owners` ORDER BY `DraftPosition` ASC");
                 </button>
                 <br><br>
                 <button id="btn_genDraftOrder" class="btn btn-success">Generate Draft Order</button>
+                <br><br>
             </div>
         </div>
     </div>

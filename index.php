@@ -15,7 +15,7 @@
                     <ul class="nav nav-tabs" id="draft_tabs">
                         <li><a href="#setup_tab" data-toggle="tab">Draft Setup</a></li>
                         <li><a href="#players_tab" data-toggle="tab">Draft Board</a></li>
-                        <li><a href="#teams_tab" data-toggle="tab">Drafted Teams</a></li>
+                        <li><a href="#recap_tab" data-toggle="tab">Draft Recap</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="setup_tab">
@@ -24,8 +24,8 @@
                         <div class="tab-pane" id="players_tab">
                             <?php include ('draftBoard.php'); ?>
                         </div>
-                        <div class="tab-pane" id="teams_tab">
-                            <?php include ('teams.php'); ?>
+                        <div class="tab-pane" id="recap_tab">
+                            <?php include ('draftRecap.php'); ?>
                         </div>
                     </div><!-- tab content -->
                 </div>
