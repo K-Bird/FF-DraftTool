@@ -11,3 +11,4 @@ if (!$con) {
 mysql_select_db("fantasyfootball_db", $con);
 
 $setPlayerToDrafted = mysql_query("UPDATE `playerpool` SET Status='Available' WHERE Row_ID='{$pool_ID}'",$con);
+$setPlayerReset = mysql_query("UPDATE `playerpool` SET DontDraftReset='' WHERE Row_ID='{$pool_ID}'",$con);
