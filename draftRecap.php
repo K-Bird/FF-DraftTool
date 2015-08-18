@@ -26,7 +26,7 @@ $RecapPoolFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` W
                         $playerValue = mysql_fetch_array($getPlayerInfo);
                         if ($RecapPoolFilter === 'ALL') {
                             echo '<button type="button" class="list-group-item playerListItem">',
-                            $draftedValue['Round'], '.', $draftedValue['Pick'],
+                            $draftedValue['Round'], '.', $draftedValue['Pick'], ' Ovr:', $draftedValue['Overall'],
                             ' ', $playerValue['PlayerName'],
                             ', ', $playerValue['Position'],
                             ' - ', $playerValue['Team'],
@@ -34,7 +34,7 @@ $RecapPoolFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` W
                         } else {
                             if (trim($playerValue['Position']) === $RecapPoolFilter) {
                                 echo '<button type="button" class="list-group-item playerListItem">',
-                                $draftedValue['Round'], '.', $draftedValue['Pick'],
+                                $draftedValue['Round'], '.', $draftedValue['Pick'], ' Ovr:', $draftedValue['Overall'],
                                 ' ', $playerValue['PlayerName'],
                                 ', ', $playerValue['Position'],
                                 ' - ', $playerValue['Team'],
@@ -103,34 +103,25 @@ $RecapPoolFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` W
             </div>
             <div class="panel-body">
                 <label>Filter Drafted Team By Owner:</label><br>
-                <select id="select_team" class="form-control"
-                        <?php
-                        if ($DraftStatus === 'setup') {
-                            echo' disabled';
+                <select id="select_team" class="form-control">
+                    <?php
+                    while ($ownersRow = mysql_fetch_array($getOwners)) {
+                        if ($ownersRow['OwnerName'] === $teamFilter) {
+                            echo '<option selected="selected" value=', $ownersRow['OwnerName'], '>', $ownersRow['OwnerName'], ' - Pick: ', $ownersRow['DraftPosition'], '</option>';
+                        } else {
+                            echo '<option value=', $ownersRow['OwnerName'], '>', $ownersRow['OwnerName'], ' - Pick: ', $ownersRow['DraftPosition'], '</option>';
                         }
-                        while ($ownersRow = mysql_fetch_array($getOwners)) {
-                            if ($ownersRow['OwnerName'] === $teamFilter) {
-                                echo '<option selected="selected" value=', $ownersRow['OwnerName'], '>', $ownersRow['OwnerName'], ' - Pick: ', $ownersRow['DraftPosition'], '</option>';
-                            } else {
-                                echo '<option value=', $ownersRow['OwnerName'], '>', $ownersRow['OwnerName'], ' - Pick: ', $ownersRow['DraftPosition'], '</option>';
-                            }
-                        }
-                        ?>
-            </select>
-            <hr>
-            <?php
-            if ($teamFilter === 'None') {
-                echo '<h2>Draft In Setup';
-            } elseif ($teamFilter === 'Started') {
-                echo '<h2>Drafted Started, Select An Owner to Filter By';
-            } else {
-
-                $qbCount = 0;
-                $rbCount = 0;
-                $wrCount = 0;
-                $teCount = 0;
-                $dstCount = 0;
-                $kCount = 0;
+                    }
+                    ?>
+                </select>
+                <hr>
+                <?php
+                $qbTeamCount = 0;
+                $rbTeamCount = 0;
+                $wrTeamCount = 0;
+                $teTeamCount = 0;
+                $dstTeamCount = 0;
+                $kTeamCount = 0;
                 echo $teamFilter, "'s Team<br>";
                 while ($draftedPicksRow = mysql_fetch_array($getDraftedPicks)) {
 
@@ -146,25 +137,24 @@ $RecapPoolFilter = mysql_result(mysql_query("SELECT Value from `draftsettings` W
                         $getOwnerOfPickRow['Pick'], ' - Overall: ',
                         $getOwnerOfPickRow['Overall'], '<br>';
                         if (trim($getDraftedPlayerRow['Position']) === 'QB') {
-                            $qbCount = $qbCount + 1;
+                            $qbTeamCount = $qbTeamCount + 1;
                         } elseif (trim($getDraftedPlayerRow['Position']) === 'RB') {
-                            $rbCount = $rbCount + 1;
+                            $rbTeamCount = $rbTeamCount + 1;
                         } elseif (trim($getDraftedPlayerRow['Position']) === 'WR') {
-                            $wrCount = $wrCount + 1;
+                            $wrTeamCount = $wrTeamCount + 1;
                         } elseif (trim($getDraftedPlayerRow['Position']) === 'TE') {
-                            $teCount = $teCount + 1;
+                            $teTeamCount = $teTeamCount + 1;
                         } elseif (trim($getDraftedPlayerRow['Position']) === 'DST') {
-                            $dstCount = $dstCount + 1;
+                            $dstTeamCount = $dstTeamCount + 1;
                         } elseif (trim($getDraftedPlayerRow['Position']) === 'K') {
-                            $kCount = $kCount + 1;
+                            $kTeamCount = $kTeamCount + 1;
                         }
                     }
                 }
                 echo '<br><br><label>Team Breakdown:</label><br>';
-                echo 'QBs: ', $qbCount, ' / 4 | RBs: ', $rbCount, ' / 8 | WRs: ', $wrCount, ' / 8 | TEs: ', $teCount, ' / 3 | DST: ', $dstCount, ' / 3 | K: ', $kCount, ' / 3';
-            }
-            ?>
+                echo 'QBs: ', $qbTeamCount, ' / 4 | RBs: ', $rbTeamCount, ' / 8 | WRs: ', $wrTeamCount, ' / 8 | TEs: ', $teTeamCount, ' / 3 | DST: ', $dstTeamCount, ' / 3 | K: ', $kTeamCount, ' / 3';
+                ?>
+            </div>
         </div>
     </div>
-</div>
 </div>

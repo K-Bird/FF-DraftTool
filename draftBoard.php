@@ -6,7 +6,7 @@ if ($PlayerPoolFilter === 'ALL') {
 } elseif ($PlayerPoolFilter === 'FLEX') {
     $getPlayers = mysql_query("SELECT * FROM `playerpool` WHERE trim(`Position`) IN ('RB','WR','TE') ORDER BY `Rank` ASC");
 } elseif ($PlayerPoolFilter === 'AVL') {
-    $getPlayers = mysql_query("SELECT * FROM `playerpool` WHERE Status='Available' ORDER BY `Rank` ASC");
+    $getPlayers = mysql_query("SELECT * FROM `playerpool` WHERE Status='Available' or Status='W' ORDER BY `Rank` ASC");
 } else {
     $getPlayers = mysql_query("SELECT * FROM `playerpool` WHERE trim(`Position`)='{$PlayerPoolFilter}' ORDER BY `Rank` ASC");
 }

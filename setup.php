@@ -20,7 +20,7 @@ $getOwners = mysql_query("SELECT * FROM `owners` ORDER BY `DraftPosition` ASC");
                 <h3 class="panel-title">Draft Order</h3>
             </div>
             <div class="panel-body">
-                <ul id="ownersList" class="list-group" style="text-align: left">
+                <ul id="ownersList" class="list-group" style="text-align: center">
                     <?php
                     while ($tableValue = mysql_fetch_array($getOwners)) {
                         echo '<button id=', $tableValue['Row_ID'], ' type="button" class="list-group-item playerListItem" data-pos=', $tableValue['DraftPosition'], '>',

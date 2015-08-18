@@ -23,7 +23,7 @@ $(document).ready(function () {
 //---- Draft Setup Functions ----//
     //Pull text from selected owner list item and pass values to edit owner modal | if nothing selected alert user and stop execution
     $('#btn_editOwner').click(function (e) {
-        var OwnerPick = $('#playerPool .list-group-item.active').text();
+        var OwnerPick = $('#ownersList .list-group-item.active').text();
 
         if (OwnerPick === '') {
             alert("You must select an owner to edit");
@@ -38,7 +38,7 @@ $(document).ready(function () {
     //Edit Owner Name
     $('#submit_editOwner').click(function (e) {
         var newName = $('#editOwner_Name').val();
-        var rowID = $('#playerPool .list-group-item.active').attr('ID');
+        var rowID = $('#ownersList .list-group-item.active').attr('ID');
 
         $.ajax(
                 {
